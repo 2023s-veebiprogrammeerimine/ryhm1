@@ -1,0 +1,31 @@
+Kolmanda koduse ülesandenda:
+
+Jätkake tunnis tehtud tööd, kus kasutasime marsruutimist (routing) ehk lähtudes veebiaadressist (näiteks põhileht "/", pildist "/banner.png" või lehest "/addname") tekitasime erineva vastuse (lehe).
+
+Lisage põhilehele esimestel tundidel loodud eestikeelse kuupäeva ja kellaaja näitamine. See peab olema loomulikult korrektse HTML koodina ehk siis tekst peab olema paigutatud näiteks tekstilõikudesse (element <p>). Pange lehele tekst, et "Lehe avamise hetkel oli ..."
+
+Lisage üks uus leht (näiteks marsruudiga "/semesterprogress"). Sellele saamiseks tuleb avalehele ("/") lisada link.
+Sellel lehel tuleb jagada infot semestri kulgemise kohta. Seda tunnis ei teinud aga tegemist on lihtsa matemaatikaga ning mõne IF lausega.
+Tuleb määrata semestri alguskuupäev (objektina): new Date("08/28/2023"), semestri lõpu kuupäev 28. jaanuar 2024.
+Käesoleva päeva saate nii nagu tundides teinud oleme: new Date()
+
+Kahe kuupäeva võrdlemine käib tavaliste võrdlusmärkidega ( ==, <, >). Ehk siis saate kindlaks teha, kas semester on juba peale hakanud, kestab või on lõppenud. Praegu semester kestab aga võite ju testimiseks määrata semestri alguseks näiteks 1. detsembri või lõpu kuupäevaks 1. oktoobri ja saategi testida, kas Teie tingimused toimivad.
+Kui semester pole veel peale haanud, siis peab lehel olema vastav teade, et 2023/2024 õppeaasta sügissemester pole veel peale hakanud.
+Kui semester on lõppenud, siis vastav teade.
+Kui semester vel kestab, siis tuleks leida, kui palju on semestrist mööda saanud.
+Kahe kuupäeva vahele jääva aja saate arvutada. Kõigepealt tuleb saada kindla aja ajatempel (väärtus millisekundites alustades 1970. aasta 1. jaanuarist). Selleks näiteks: 
+const semesterBegin = new Date("08/28/2023");
+const today = new Date();
+let semesterLastedFor = today.getTime() - semesterBegin.getTime();
+Tulemus on päris suur arv millisekundites. See tuleb jagada millisekundite arvuga ööpäevas (1000 * 60 * 60 * 24) (millisekundid*sekundid*minutit*tunnid). Muidugi tuleb tulemust ka allapoole ümardada, set tänase väärtuses on ka kellaajast tulenev osa, mis annab murdarvulise päevade arvu.
+
+Lisage veebilehele info, mitu päeva semester kestnud on. Võiksite lisada ka järelejäänud päevade arvu. Kes soovib, arvutab ka, mitu nädalat on möödunud või jäänud.
+
+Kui semester kestab, siis palun lisage veebilehele selle kohta ka graafiline element:
+<meter min="0" max="x" value="y"></meter>
+Siin elemendi atribuutides x on semestri pikkus päevades ja y on arv, mitu päeva on semester juba kestnud.
+
+Lisage veel üks leht, kus näidatakse üht (Teie valitud) fotot Tallinna Ülikoolist.  Võtke üks foto, mille leiate siit: https://greeny.cs.tlu.ee/~rinde/media/photos/TLU_600x400/
+Kopeerige see foto oma projekti public kataloogi, tehke sinna tluphotos alamkataloog!
+
+Edu.ee!
