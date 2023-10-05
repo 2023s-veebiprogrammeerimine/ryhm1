@@ -51,17 +51,29 @@ http.createServer(function(req, res){
 		return res.end();
 	}
 
-	else if (currentURL.pathname === "/tluphoto"){ 
-		res.writeHead(200, {"Content-Type": "text/html"});
-		res.write(pageHead);
-		res.write(pageBanner);
-		res.write(pageBody);
-		res.write('\n\t<hr>');
-		res.write('\n\t<img src="tlu_42.jpg" alt="TLÜ foto">');
-		res.write('\n\t <p><a href="/">Tagasi avalehele</a>!</p>');
-		res.write(pageFoot);
-		//et see kõik valmiks ja ära saadetaks
-		return res.end();
+	else if (currentURL.pathname === "/tluphoto"){
+		//loeme kataloogist fotode nimekirja ja loosime ühe pildi
+		let htmlOutput = '\n\t<p>Pilti ei saa näidata!</p>';
+		let listOutput = '';
+		fs.readdir('public/tluphotos', (err, fileList)=>{
+			if(err) {
+				throw err;
+				tluPhotoPage(res, htmlOutput, listOutput);
+			}
+			else {
+				//console.log(fileList);
+				let photoNum = Math.floor(Math.random() * fileList.length);
+				htmlOutput = '\n\t<img src="' + fileList[photoNum] + '" alt="TLÜ pilt">';
+				//console.log(htmlOutput);
+				listOutput = '\n\t<ul>';
+				for (fileName of fileList){
+					listOutput += '\n\t\t<li>' + fileName + '</li>';
+				}
+				listOutput += '\n\t</ul>';
+				//console.log(listOutput);
+				tluPhotoPage(res, htmlOutput, listOutput);
+			}
+		});
 	}
 
 	else if (currentURL.pathname === "/banner.png"){
@@ -80,10 +92,12 @@ http.createServer(function(req, res){
 		});
 	}
 
-	else if (currentURL.pathname === "/tlu_42.jpg"){
-		console.log("tahan jpg pilti!");
-		let filePath = path.join(__dirname, "public", "tluphotos/tlu_42.jpg");
-		fs.readFile(filePath, (err, data)=>{
+	//else if (currentURL.pathname === "/tlu_42.jpg"){
+	else if (path.extname(currentURL.pathname) === ".jpg"){
+		console.log(path.extname(currentURL.pathname));
+		//let filePath = path.join(__dirname, "public", "tluphotos/tlu_42.jpg");
+		let filePath = path.join(__dirname, "public", "tluphotos");
+		fs.readFile(filePath + currentURL.pathname, (err, data)=>{
 			if(err){
 				throw err;
 			}
@@ -120,6 +134,23 @@ function semesterInfo(){
 		htmlOutput += '\n\t <meter min="0" max="' + semesterDuration + '" value="' + semesterLastedFor + '"></meter>';
 	}
 	return '\n\t' + htmlOutput;
+}
+
+function tluPhotoPage(res, htmlOut, listOutput){
+	res.writeHead(200, {"Content-Type": "text/html"});
+	res.write(pageHead);
+	res.write(pageBanner);
+	res.write(pageBody);
+	res.write('\n\t<hr>');
+	res.write(htmlOut);
+	if(listOutput != ''){
+		res.write(listOutput);
+	}
+	//res.write('\n\t<img src="tlu_42.jpg" alt="TLÜ foto">');
+	res.write('\n\t <p><a href="/">Tagasi avalehele</a>!</p>');
+	res.write(pageFoot);
+	//et see kõik valmiks ja ära saadetaks
+	return res.end();
 }
 
 //rinde    5100
