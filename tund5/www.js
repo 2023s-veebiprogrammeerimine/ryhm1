@@ -2,6 +2,7 @@ const http = require("http");
 const url = require("url");
 const path = require("path");
 const fs = require("fs");
+const querystring = require('querystring');
 const datetimeValue = require("./datetime_et");
 
 const pageHead = '<!DOCTYPE html>\n<html>\n<head>\n\t<meta charset="utf-8">\n\t<title>Andrus Rinde, veebiprogrammeerimine 2023</title>\n</head>\n<body>';
@@ -12,7 +13,37 @@ const pageFoot = '\n\t<hr>\n</body>\n</html>';
 http.createServer(function(req, res){
 	let currentURL = url.parse(req.url, true);
 	//console.log(currentURL);
-	if (currentURL.pathname === "/"){
+	if(req.method === 'POST'){
+		
+		collectRequestData(req, result => {
+            console.log(result);
+			//kirjutame andmeid tekstifaili
+			fs.open('public/log.txt', 'a', (err, file)=>{
+				if(err){
+					throw err;
+				}
+				else {
+					fs.appendFile('public/log.txt', result.firstNameInput + ';', (err)=>{
+						if(err){
+							throw err;
+						}
+						else {
+							console.log('faili kirjutati!');
+						}
+					});
+				}
+				/* fs.close(file, (err)=>{
+					if(err){
+						throw err;
+					}
+				}); */
+			});
+			
+			res.end(result.firstNameInput);
+			//res.end('Tuligi POST!');
+		});
+	}
+	else if (currentURL.pathname === "/"){
 		res.writeHead(200, {"Content-type": "text/html"});
 		res.write(pageHead);
 		res.write(pageBanner);
@@ -32,7 +63,7 @@ http.createServer(function(req, res){
 		res.write(pageBanner);
 		res.write(pageBody);
 		res.write('\n\t<hr>\n\t<h2>Lisa palun oma nimi</h2>');
-		res.write('\n\t<p>Edaspidi lisame siia asju!</p>');
+		res.write('\n\t<form method="POST">\n\t\t<label for="firstNameInput">Eesnimi: </label>\n\t\t<input type="text" name="firstNameInput" id="firstNameInput" placeholder="Sinu eesnimi ...">\n\t\t<br>\n\t\t<label for="lastNameInput">Perekonnanimi: </label>\n\t\t<input type="text" name="lastNameInput" id="lastNameInput" placeholder="Sinu perekonnanimi ...">\n\t\t<br>\n\t\t<input type="submit" name="nameSubmit" value="Salvesta">\n\t</form>');
 		res.write('\n\t <p><a href="/">Tagasi avalehele</a>!</p>');
 		res.write(pageFoot);
 		return res.end();
@@ -153,5 +184,20 @@ function tluPhotoPage(res, htmlOut, listOutput){
 	return res.end();
 }
 
+function collectRequestData(request, callback) {
+    const FORM_URLENCODED = 'application/x-www-form-urlencoded';
+    if(request.headers['content-type'] === FORM_URLENCODED) {
+        let receivedData = '';
+        request.on('data', chunk => {
+            receivedData += chunk.toString();
+        });
+        request.on('end', () => {
+            callback(querystring.decode(receivedData));
+        });
+    }
+    else {
+        callback(null);
+    }
+}
 //rinde    5100
 
