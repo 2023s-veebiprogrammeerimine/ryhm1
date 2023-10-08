@@ -1,0 +1,30 @@
+Kodune ülesanne:
+Täiendage faili kirjutamist selliselt, et kirjutataks andmed kujul: eesnimi,perekonnanimi,kuupäev
+Seejuures peaks kuupäev olema ingliskeelse formaadiga ehk m/d/y (kuu/kuupäev/aasta), sest siis saab seda hiljem kuupäevaobjekti loomiseks kasutada, võrrelda teistega jne. See tähendab, et peate lisama ühe uue mooduli (nagu eestikeelsete aja asjade moodul) ka inglisekeelsete jaoks ning selle meie programmis kasutusele võtma.
+Kellel see ei õnnestu, salvestab faili lihtsalt: eesnimi,perekonnanimi;
+
+Täiendage salvestamise osa selliselt, et teade salvestuse kohta näeks brauseris ikka ilus veebileht välja - salvestamise järel tuleks väljastada sisuliselt seesama veebileht (html osa), mis nime lisamisel aga ilma vormita.
+Vormi asemel võiks olla link lehe algversioonile naasmiseks (/addName)
+_____________________________________________________________________________________________
+Lisage leht, millel loetakse sisse seesama log.txt fail ja väljastatakse veebilehel korrektse html-iga (lugemine nagu tegime failis class3.js vanasõnadega).
+
+Lihtsaim versioon: kogu txt faili sisu lisatakse ühe <p> elemendi sisse.
+
+Keerukam versioon: txt faili sisu loetakse ja muudetakse massiviks (array). Kuna kõik andmed said tekstifaili kirjutatud koos lõppu lisatud semikooloniga (;), siis saab selle järgi tükkideks jagada. Nii tegime vanasõnadega. Näiteks: let allData = data.split(";");    (siin data oli loetud tekstifail)
+Nüüd tuleks kõik andmed väljastada listina <ul>...</ul>, mille sees on elemendid <li>...</li>. Iga <li> sees oleks siis üks nime, perekonnanime (ja loodetavasti kuupäeva) komplekt.
+Siinkohal tuleks <li> elementide loomiseks kasutada tsüklit.
+
+Kõige keerulisem versioon: Esimese korraga jagatakse loetud andmed semikooloni järgi massiiviks. Seejärel aga juba iga inimese andmed omakorda massiiviks, mille elementideks on eesnimi, perekonnanimi (ja kui õnnestus ka kuupäev salvestada).
+Seega tuleks kõigepealt luua massiiv nage eelpool - semikoolonite järgi.
+Siis luua uus tühi massiiv, näiteks: let extractedData = [];
+Nüüd tuleks teha tsükkel, mis käib läbi esimesena loodud massiivi, võtab sealt elemendi (nimi, perekonnanimi ja kuupäev) ning tükeldab selle koma järgi omakorda massiiviks. Mõistlik on see siis kohe uude massiivi lisada. Massiivile uue elemendi lisamiseks on push funktsioon, mida kasutatakse kujul: massiiv.push(element:mida_lisatakse);.
+Näiteks: extractedData.push(allData[i].split(","));    (siin i oleks näiteks tavalise for tsükli loendur, mille abil määrame loetava massiivielemendi indeksi).
+
+Nii tekib massiiv kujul: [[eesnimi1, perenimi1, kuupäev1], [eesnimi2, perenimi2, kuupäev2], ...]
+
+Siit saab andmed kätte nii: massivinimi[suure_massiivi_elemendi_indeks][elemendiks_oleva_väikese_massivi_elemendi_indeks]
+
+Ehk siis perenimi1 oleks [0][1], kuupäev2 oleks [1][2] jne
+
+
+Usun, et tööd on piisavalt!
