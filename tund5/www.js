@@ -29,7 +29,7 @@ http.createServer(function(req, res){
 						if(err){
 							throw err;
 							notice = '<p>Sisestatud andmete salvestamine ebaõnnestus!</p>';
-							nameAddedNotice(rs, notice);
+							nameAddedNotice(res, notice);
 						}
 						else {
 							console.log('faili kirjutati!');
