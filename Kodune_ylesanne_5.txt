@@ -1,0 +1,12 @@
+Seekord jäi üsna väike osa:
+Lisada meie värskelt Expressjs abil tekitatud veebi uus alajaotus (route ehk leht), millel näidatakse eelmises projektis salvestatud nimesid ja kuupäevasid.
+See log.txt fail peab nüüd olema kopeeritud uue projekti public kausta (kataloogi), soovitavalt seal omakorda txtfiles alamkautsa.
+Sealt tuleb seda lugeda ja siis nummerdatud loendina (list) <ol> nähtavale tuua.
+Nõutav on selline kuju:
+<li>Eesnimi Perekonnanimi, mis salvestati dd.mm.yyyy</li>
+
+Ehk siis anmded tuleb parsida selliselt, et eesnimi, perekonnanimi ja kuupäev oleksid kõik eraldi kättesaadavad.
+Kuupäev võiks olla Eestis kasutataval kujul.
+Viimaseks tuleks meie kuupäevademoodulisse (mida oleme ise teinud) lisada funktsioon, millele saaks saata inglisepärase kuupäeva, see teeks sellest kuupäeva objekti, millelt siis omakorda saate küsida, mis kuu, kuupäev ja aasta on ning need Eesti moodi kokku panna. Vaadake, kuidas me semestri alguse ja lõpu objektidena tegime!
+
+
