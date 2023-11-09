@@ -1,0 +1,29 @@
+1) lisate uudiste kirjutamise andmetabelisse!
+
+Seejuures peate tabelisse kirjutama ka userid väärtuse aga programmis annate ette "võltsväärtuse" userid=1
+
+2) /news/read lehele tekitate kõigi uudiste nimekirja, mis pole aegunud ega kustutatud
+
+Selleks SQL lause:
+SELECT * FROM `vpnews` WHERE expire > ? AND deleted IS NULL ORDER BY id DESC
+
+
+Näiteks: SELECT * FROM `vp_news` WHERE expire > "2023-10-10" AND DELETED IS NULL ORDER BY id DESC
+
+Siia kuupäev tuleb loomulikult muutujast, küsite tänase päeva kuupeva ja vormindate selle vastavalt
+
+Tekitate lehe (readnews), millel on järjest lingid
+
+<li><a href="/news/read/id">Uudise pealkiri</a></li>
+
+Siin id on vastava uudise id
+
+
+
+3) konkreetse uudise vaatamine lehel /news/read/:id
+
+Kujul: 
+
+<h3>Uudise pealkiri</h3>
+<p>Lisatud: lisamise kuupäev</p>
+<p>Sisu</p>
