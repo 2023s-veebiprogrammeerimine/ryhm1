@@ -5,10 +5,10 @@ Seejuures peate tabelisse kirjutama ka userid väärtuse aga programmis annate e
 2) /news/read lehele tekitate kõigi uudiste nimekirja, mis pole aegunud ega kustutatud
 
 Selleks SQL lause:
-SELECT * FROM `vpnews` WHERE expire > ? AND deleted IS NULL ORDER BY id DESC
+SELECT * FROM vpnews WHERE expire > ? AND deleted IS NULL ORDER BY id DESC
 
 
-Näiteks: SELECT * FROM `vp_news` WHERE expire > "2023-10-10" AND DELETED IS NULL ORDER BY id DESC
+Näiteks: SELECT * FROM vp_news WHERE expire > "2023-10-10" AND DELETED IS NULL ORDER BY id DESC
 
 Siia kuupäev tuleb loomulikult muutujast, küsite tänase päeva kuupeva ja vormindate selle vastavalt
 
