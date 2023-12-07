@@ -1,0 +1,19 @@
+Teha jäi:
+
+1) Sisseloginud kasutajale näidatakse galeriis pilte privaatsusega 2 ja 3, teistele ainult privaatsusega 3
+
+2) Piltide üleslaadimisel on pildi nimele laiendi (jpg, png, gif) valikul vaja lähtuda pildi reaalsest MIME tüübist.
+
+Selleks näiteks guugeldate "nodejs detect MIME type of file". Ilmselt on mõistlik kasutada file-type moodulit (installida).
+See annab väljundina nii laiendi (mõttetu) kui ka mime.
+MIME võib olla image/jpeg, imnage/png, image/gif, faililaiend peab olema vastavalt jpg, png, gif.
+
+3) Faili suuruse muutmiseks tuleks lähtuda sellest, kas on horisontaalne või vertikaalne pilt. Meie planeeritud suurus 800X600 oleks siis maksimaalne laius ja maksimaalne kõrgus. Kui pilt on laiem (kui kõrge), siis tuleks lähtuda laiusest, leida laiuse ja soovitud laiuse suhe ning selle järgi arvutada ka oodatav kõrgus. Kõrge pilti puhul vastupidi.
+Arvutatav mõõt peab olema ümardatud allapoole (Math.floor())
+Pildi originaalmõõtude leidmiseks võib uurida näiteks: https://tooabstractive.com/how-to-tech/how-to-get-image-width-and-height-in-nodejs/?utm_content=cmp-true
+
+4) Kasutades SQL lauset:
+SELECT vpgallery.id, filename, alttext, firstname, lastname FROM vpgallery JOIN vpusers ON vpgallery.userid = vpusers.id WHERE vpgallery.privacy >= ? AND deleted IS NULL GROUP BY vpgallery.id DESC
+
+Lisage galeriis iga pildikese (element <img>) alla ka omaniku ees- ja perekonnanimi!
+

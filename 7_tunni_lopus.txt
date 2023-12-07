@@ -1,0 +1,22 @@
+leht /eestifilm/singlemovie
+
+Loendate, mitu filmi on
+
+SELECT COUNT(id) FROM movie
+
+<input type="number" name="..." id="..." min="1" max="x" value="1">
+
+x on siis see loendatud arv, ejs abil lisate 
+
+
+POST:
+
+lugeda andmebaasist kõik valitud numbriga filmi andmed ja ekraanile tuua
+
+... WHERE id=?
+
+<h3>Pealkiri</h3>
+<p>pealkiri</p>
+<h3>Valmimisaasta</h3>
+<p>aasta</p>
+...
